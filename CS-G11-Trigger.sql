@@ -1,0 +1,9 @@
+CREATE OR REPLACE TRIGGER trg_check_grade
+BEFORE INSERT OR UPDATE ON ENROLLMENT
+FOR EACH ROW
+BEGIN
+    IF :NEW.grade NOT IN ('A', 'B', 'C', 'D', 'F') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Invalid grade value.');
+    END IF;
+END;
+/
